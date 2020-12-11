@@ -6,8 +6,9 @@ echo 'Please enter 1 to add a car, 2 to list car inventory, or 3 to quit the pro
 read -r input
 x=1234
 while [ "$input" -ne "$x" ]; do
-	if [ "$input" -eq 1 ];
-	then
+	case "$input" in
+	[1]*)
+		newcar=""
 		echo 'Enter the car year: '
 		read -r year
 		newcar+="${year}"  
@@ -18,15 +19,17 @@ while [ "$input" -ne "$x" ]; do
 		read -r model
 		newcar+=":${model}"
 		echo "$newcar" >> "$SCRIPT_PATH"
-		exit
-	elif [ "$input" -eq 2 ];
-	then
-		OUTPUT=$("$SCRIPT_PATH")
-		echo "$OUTPUT"
-		exit
-	elif [ "$input" -eq 3 ];
-	then
+		echo 'Please input either 1, 2, or 3 to continue: '
+		read -r input
+		;;
+	[2]*)
+		sort -n "./my_old_cars"
+		echo 'Please input either 1, 2, or 3 to continue: '
+		read -r input
+		;;
+	[3]*)
 		echo "Goodbye."
 		exit
-	fi
+		;;
+esac
 done
